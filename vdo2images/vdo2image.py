@@ -3,13 +3,12 @@
 import os
 import cv2
 import numpy as np
-import pyzbar.pyzbar as pyzbar
 import time
 
 def main():
     print("Hello !!!")
 
-    cap = cv2.VideoCapture('Data_structure_and_route_28_Dec_2019.mp4')
+    cap = cv2.VideoCapture('/home/probook/Downloads/Data.mp4')
     frame_width = int(cap.get(3))
     frame_height = int(cap.get(4))
     fps = int(cap.get(cv2.CAP_PROP_FPS))*1.0
