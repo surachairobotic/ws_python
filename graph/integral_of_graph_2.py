@@ -8,61 +8,36 @@ def main():
   
   plt.close('all')
 
-  f_name = 'C:/Users/surachai_probook/Downloads/TEST770.xlsx'
+  ff = ['C:/Users/surachai_probook/Downloads/TEST770.xlsx',
+        'C:/Users/surachai_probook/Downloads/TEST710.xlsx',
+        'C:/Users/surachai_probook/Downloads/TEST650.xlsx',
+        'C:/Users/surachai_probook/Downloads/TEST6501.xlsx']
+  f_name = ff[3]
   df = pd.read_excel(f_name)
   #with pd.option_context('display.max_rows', None, 'display.max_columns', None):
   print(df)
-  name = df.iloc[2:,0].tolist()
-  print(name)
-  x = [x for x in range(7)]
-  print(df.columns[x])
-  df.drop(df.columns[x], axis = 1, inplace = True)
-  df.drop([0], inplace = True)
-  df = df.fillna(0)
-  #print(df)
-  #print(df.iloc[0])
-  t = df.iloc[0]
-  y = []
+  df.drop(df.columns[[0,1]], axis = 1, inplace = True)
+  print(df)
+  t = df['Time MST'].tolist()
+  dist = df['Distance'].tolist()
+  load = df['Load cell'].tolist()
   #print(df.shape[0])
-  for i in range(1, df.shape[0]):
-    y.append(df.iloc[i])
-    #print(len(y[i-1]))
 
-  for i in range(len(t)):
-    if t[i] > 90:
-      break_indx = i
-      for j in range(len(y)):
-        y[j] = y[j][:i]
-      t = t[:i]
-      break
-  #df['speed'] = df['speed']*-100/255
-  z=[]
-  avg=[]
-  for i in range(len(y)):
-    _sum=0
-    tmp=[0]
-    for j in range(len(t)-1):
-      dt=t[j+1]-t[j]
-      area=(y[i][j]+y[i][j+1])/2.0*dt
-      _sum=_sum+area
-      tmp.append(area)
-    avg.append(_sum)
-    z.append(tmp)
-
-  for i in range(len(name)):
-     name[i]=name[i][3:-10]
-  print("name : ")
-  print(name)
-
+  z = [0]
+  for i in range(1,len(dist)):
+    area = (dist[i-1]+dist[i]) / 2.0 * (t[i]-t[i-1])
+    z.append(area)
 
   fig, axarr = plt.subplots(1, 1, sharex=True)
-  axarr.plot(name, avg, label='Area value all files')
+  axarr.plot(t, dist, label='Distance')
+  axarr.plot(t, z, label='Area')
+  #axarr.plot(t, load, label='Load cell')
   axarr.legend()
-  plt.xticks(rotation=90)
+  #plt.xticks(rotation=90)
   plt.tight_layout()
-  plt.savefig('C:/Users/surachai_probook/Downloads/TEST770.png')
-  #plt.plot()
-  #plt.show()
+  #plt.savefig('C:/Users/surachai_probook/Downloads/TEST770.png')
+  plt.plot()
+  plt.show()
   exit()
 
   pattern=2
