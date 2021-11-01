@@ -8,18 +8,19 @@ def main():
   
   plt.close('all')
 
-<<<<<<< HEAD
   f_name = 'C:/Users/surachai_probook/Downloads/P1951578_12 samples_8092564_(Averag 5 records).xls'
   f_name = 'C:/Users/surachai_probook/Downloads/Particle size of HA latex from east and south.xlsx'
+  f_name = 'C:/Users/surachai_probook/Downloads/P1951578_14 samples_6102564 (Average record).xls'
 
   n1 = f_name.rfind('/') + 1
   n2 = f_name.rfind('.')
   ffname = f_name[n1:n2]
   ffpath = f_name[:n1]
+  print(n1)
+  print(n2)
+  print(ffname)
+  print(ffpath)
 
-=======
-  f_name = '/home/probook/Downloads/P1951578_15 samples_8072564_(Averag 5 records).xls'
->>>>>>> 0a0bed63219dc0d33cc53d8c1a14acf328f58355
   df = pd.read_excel(f_name)
   #with pd.option_context('display.max_rows', None, 'display.max_columns', None):
   print(df)
@@ -40,11 +41,8 @@ def main():
     #print(len(y[i-1]))
 
   for i in range(len(t)):
-<<<<<<< HEAD
-    if t[i] > 16:
-=======
+    #if t[i] > 16:
     if t[i] > 20:
->>>>>>> 0a0bed63219dc0d33cc53d8c1a14acf328f58355
       break_indx = i
       for j in range(len(y)):
         y[j] = y[j][:i]
@@ -53,7 +51,7 @@ def main():
   #df['speed'] = df['speed']*-100/255
   z=[]
   avg=[]
-<<<<<<< HEAD
+
   m=[]
   vx=[]
   w1=[]
@@ -62,6 +60,8 @@ def main():
     _sum=0
     tmp=[0]
     _m=[]
+    _w1=0
+    _vx=t[0]
     b_line=True
     for j in range(len(t)-1):
       if t[j] > 1 and t[j] < 4:
@@ -70,8 +70,10 @@ def main():
           _y = 6
           if b_line and _m[-1] == 0:
             b_line = False
-            vx.append(t[j])
-            w1.append(_sum)
+            #vx.append(t[j])
+            _vx=t[j]
+            #w1.append(_sum)
+            _w1=_sum
         elif _y < 0:
           _y = 0
         else:
@@ -89,8 +91,11 @@ def main():
     z.append(tmp)
     _m.append(0)
     m.append(_m)
-    #w2.append(_sum-w1[-1])
-=======
+    w1.append(_w1)
+    w2.append(_sum-w1[-1])
+    vx.append(_vx)
+
+  '''
   m = []
   w1 = []
   w2 = []
@@ -122,7 +127,7 @@ def main():
     avg.append(_sum)
     z.append(tmp)
     m.append(_m)
->>>>>>> 0a0bed63219dc0d33cc53d8c1a14acf328f58355
+  '''
 
   #for i in range(len(name)):
   #   name[i]=name[i][3:-10]
@@ -136,11 +141,9 @@ def main():
   axarr.legend()
   plt.xticks(rotation=90)
   plt.tight_layout()
-<<<<<<< HEAD
+
   plt.savefig(ffpath + ffname + '.png')
-=======
-  plt.savefig('/home/probook/Downloads/P1951578_15 samples_8072564_(Averag 5 records).png')
->>>>>>> 0a0bed63219dc0d33cc53d8c1a14acf328f58355
+
   #plt.plot()
   #plt.show()
   #exit()
@@ -152,39 +155,40 @@ def main():
     fig, axarr = plt.subplots(1, 1, sharex=True)
     fig.set_size_inches(13, 5)
     _a = "{:.2f}".format(round(avg[i], 2))
-<<<<<<< HEAD
+
     #_w1 = "{:.2f}".format(round(w1[i], 2))
     #_w2 = "{:.2f}".format(round(w2[i], 2))
-=======
+
     _w1 = "{:.2f}".format(round(w1[i], 2))
     _w2 = "{:.2f}".format(round(w2[i], 2))
->>>>>>> 0a0bed63219dc0d33cc53d8c1a14acf328f58355
+
     if pattern is 1:
       axarr.plot(t, y[i], label=name[i]+": "+_a+"\nw1: "+_w1+"\nw2: "+_w2)
       axarr.plot(t, m[i])
       axarr.legend()
-      fig.savefig("/home/probook/Downloads/savefig/clean/"+name[i]+".png")
+      fig.savefig(ffpath + "clean/"+name[i]+".png")
     elif pattern is 2:
       #axarr.plot(t, m[i], label='slope')
-      #axarr.axvline(x=vx[i], color='k', linestyle='--')
+      axarr.axvline(x=vx[i], color='k', linestyle='--')
       axarr.plot(t, y[i], label=name[i])
-<<<<<<< HEAD
-      #axarr.plot(t, z[i], label='Average area : '+_a+'\nw1 : '+_w1+'\nw2 : '+_w2)
-      axarr.plot(t, z[i], label='Average area : '+_a)
+
+      #axarr.plot(t, z[i], label='Area : '+_a+'\nw1 : '+_w1+'\nw2 : '+_w2)
+      #axarr.plot(t, z[i], label='Area : '+_a)
+      #axarr.legend()
+      #plt.savefig(ffpath+"savefig/lot4/"+name[i]+".png")
+
+      axarr.plot(t, z[i], label='Area : '+_a+"\nw1: "+_w1+"\nw2: "+_w2)
+      #axarr.plot(t, m[i])
       axarr.legend()
-      plt.savefig(ffpath+"savefig/lot3/"+name[i]+".png")
-=======
-      axarr.plot(t, z[i], label='Average area : '+_a+"\nw1: "+_w1+"\nw2: "+_w2)
-      axarr.plot(t, m[i])
-      axarr.legend()
-      fig.savefig("/home/probook/Downloads/savefig/with_area/"+name[i]+".png")
+      fig.savefig(ffpath + "savefig/with_area/"+name[i]+".png")
       axarr2.plot(t, y[i], label=name[i])
-      axarr2.plot(t, m[i])
->>>>>>> 0a0bed63219dc0d33cc53d8c1a14acf328f58355
+      axarr2.axvline(x=vx[i], color='k', linestyle='--')
+      #axarr2.plot(t, m[i])
+
     #print("name : " + name[i])
     #break
   fig2.tight_layout()
-  fig2.savefig("/home/probook/Downloads/savefig/xxx.png")
+  fig2.savefig(ffpath + "savefig/xxx.png")
 
 
   #axarr.scatter(df['speed'], df['calculate'], marker='.', color='blue')
