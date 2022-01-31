@@ -2,6 +2,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 def main():
   print("Hello !!!")
@@ -11,6 +12,11 @@ def main():
   f_name = 'C:/Users/surachai_probook/Downloads/P1951578_12 samples_8092564_(Averag 5 records).xls'
   f_name = 'C:/Users/surachai_probook/Downloads/Particle size of HA latex from east and south.xlsx'
   f_name = 'C:/Users/surachai_probook/Downloads/P1951578_14 samples_6102564 (Average record).xls'
+  f_name = 'C:/Users/surachai_probook/Downloads/P1951578_10 samples_8112564 (Average record).xls'
+  f_name = 'C:/Users/surachai_probook/Downloads/P1951578_5 samples_3122564 (Average record).xls'
+
+  f_name = 'C:/Users/surachai_probook/Downloads/P1951578_7 samples_16122564 (Average record).xls'
+  f_name = 'C:/Users/surachai_probook/Downloads/P1951578_5 samples_14012565 (Average record).xls'
 
   n1 = f_name.rfind('/') + 1
   n2 = f_name.rfind('.')
@@ -20,6 +26,22 @@ def main():
   print(n2)
   print(ffname)
   print(ffpath)
+
+  path = os.path.join(ffpath, ffname)
+  try:
+    os.mkdir(path)
+  except OSError as error: 
+    print(error)
+  path = os.path.join(ffpath+"/"+ffname, "clean")
+  try:
+    os.mkdir(path)
+  except OSError as error: 
+    print(error)
+  try:
+    os.makedirs(ffpath + ffname + "/savefig/with_area/")
+  except OSError as error: 
+    print(error)
+
 
   df = pd.read_excel(f_name)
   #with pd.option_context('display.max_rows', None, 'display.max_columns', None):
@@ -148,47 +170,50 @@ def main():
   #plt.show()
   #exit()
 
-  pattern=2
-  fig2, axarr2 = plt.subplots(1, 1, sharex=True)
-  fig2.set_size_inches(13, 5)
-  for i in range(len(y)):
-    fig, axarr = plt.subplots(1, 1, sharex=True)
-    fig.set_size_inches(13, 5)
-    _a = "{:.2f}".format(round(avg[i], 2))
+  patterns=[1,2]
+  for pattern in patterns:
+    fig2, axarr2 = plt.subplots(1, 1, sharex=True)
+    fig2.set_size_inches(13, 5)
+    for i in range(len(y)):
+      fig, axarr = plt.subplots(1, 1, sharex=True)
+      fig.set_size_inches(13, 5)
+      _a = "{:.2f}".format(round(avg[i], 2))
 
-    #_w1 = "{:.2f}".format(round(w1[i], 2))
-    #_w2 = "{:.2f}".format(round(w2[i], 2))
+      #_w1 = "{:.2f}".format(round(w1[i], 2))
+      #_w2 = "{:.2f}".format(round(w2[i], 2))
 
-    _w1 = "{:.2f}".format(round(w1[i], 2))
-    _w2 = "{:.2f}".format(round(w2[i], 2))
+      _w1 = "{:.2f}".format(round(w1[i], 2))
+      _w2 = "{:.2f}".format(round(w2[i], 2))
 
-    if pattern is 1:
-      axarr.plot(t, y[i], label=name[i]+": "+_a+"\nw1: "+_w1+"\nw2: "+_w2)
-      axarr.plot(t, m[i])
-      axarr.legend()
-      fig.savefig(ffpath + "clean/"+name[i]+".png")
-    elif pattern is 2:
-      #axarr.plot(t, m[i], label='slope')
-      axarr.axvline(x=vx[i], color='k', linestyle='--')
-      axarr.plot(t, y[i], label=name[i])
+      if pattern is 1:
+        axarr.plot(t, y[i], label=name[i]+": "+_a+"\nw1: "+_w1+"\nw2: "+_w2)
+        axarr.plot(t, m[i])
+        axarr.legend()
+      
+        s = ffpath + ffname + "/clean/"
+        fig.savefig(s + name[i] + ".png")
+      elif pattern is 2:
+        #axarr.plot(t, m[i], label='slope')
+        axarr.axvline(x=vx[i], color='k', linestyle='--')
+        axarr.plot(t, y[i], label=name[i])
 
-      #axarr.plot(t, z[i], label='Area : '+_a+'\nw1 : '+_w1+'\nw2 : '+_w2)
-      #axarr.plot(t, z[i], label='Area : '+_a)
-      #axarr.legend()
-      #plt.savefig(ffpath+"savefig/lot4/"+name[i]+".png")
+        #axarr.plot(t, z[i], label='Area : '+_a+'\nw1 : '+_w1+'\nw2 : '+_w2)
+        #axarr.plot(t, z[i], label='Area : '+_a)
+        #axarr.legend()
+        #plt.savefig(ffpath+"savefig/lot4/"+name[i]+".png")
 
-      axarr.plot(t, z[i], label='Area : '+_a+"\nw1: "+_w1+"\nw2: "+_w2)
-      #axarr.plot(t, m[i])
-      axarr.legend()
-      fig.savefig(ffpath + "savefig/with_area/"+name[i]+".png")
-      axarr2.plot(t, y[i], label=name[i])
-      axarr2.axvline(x=vx[i], color='k', linestyle='--')
-      #axarr2.plot(t, m[i])
+        axarr.plot(t, z[i], label='Area : '+_a+"\nw1: "+_w1+"\nw2: "+_w2)
+        #axarr.plot(t, m[i])
+        axarr.legend()
+        fig.savefig(ffpath + ffname + "/savefig/with_area/"+name[i]+".png")
+        axarr2.plot(t, y[i], label=name[i])
+        axarr2.axvline(x=vx[i], color='k', linestyle='--')
+        #axarr2.plot(t, m[i])
 
-    #print("name : " + name[i])
-    #break
-  fig2.tight_layout()
-  fig2.savefig(ffpath + "savefig/xxx.png")
+      #print("name : " + name[i])
+      #break
+    fig2.tight_layout()
+    fig2.savefig(ffpath + ffname + "/savefig/xxx.png")
 
 
   #axarr.scatter(df['speed'], df['calculate'], marker='.', color='blue')

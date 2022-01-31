@@ -19,7 +19,7 @@ def main():
     #tcs = yf.download('TCS',start,end)
     #infy = yf.download('INFY',start,end)
     #wipro = yf.download('WIPRO.NS',start,end)
-    infy = yf.download('^SET.BK',start,end)
+    infy = yf.download('AMD',start,end)
     #print(type(infy))
     #print(infy['Open'])
     #print(type(infy['Open']))
