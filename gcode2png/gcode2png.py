@@ -18,7 +18,6 @@ class Information:
 
         image = Image.fromarray(pic)
         image.save("layer_"+f"{self.layer:03d}"+".bmp", format="bmp")
-        
 
 def main():
     print('Number of arguments:', len(sys.argv), 'arguments.')
