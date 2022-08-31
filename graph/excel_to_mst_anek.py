@@ -26,7 +26,7 @@ def csv_to_list(fpath, fname):
     fig, axs = plt.subplots(2)
     fig.suptitle(fname)
     axs[0].set_xlabel('Time (s)')
-    axs[0].set_ylabel('Force (N)')
+    axs[0].set_ylabel('Force (gF)')
     axs[0].plot(df['RAW'].values.tolist())
     axs[0].plot(short)
     axs[0].plot(long)
@@ -35,12 +35,28 @@ def csv_to_list(fpath, fname):
     axs[1].set_xlabel('Time (s)')
     axs[1].set_ylabel('R.O.C')
     
+    line = 0
     p = para(len(short))
+    for i in range(300, len(p)):
+        if res[i] > p[i]:
+            line = i
+            break
     #print(p)
+    
+    df['diff'] = res
+    df['equation'] = p
+    if fname.find('new') == -1:
+        df.to_csv(fpath + "new_" + fname)
+
+    #print(df)
+    
     axs[1].plot(p)
     
-    figure = plt.gcf() # get current figure
-    figure.set_size_inches(8, 7)
+    axs[1].axvline(x = line, color = 'r', linestyle='dashed')
+    axs[1].text(line+10, p[line]+0.1, 'mst = ' + str(line), fontsize=10)
+    
+    #figure = plt.gcf() # get current figure
+    #figure.set_size_inches(8, 7)
 
     #plt.show()
     plt.savefig(fpath + fname[:-4] + ".png", dpi = 100)
@@ -72,8 +88,9 @@ def get_file_lists(mypath):
 def main():
     fLists = get_file_lists("C:\\MST151821_03_65\\")
     dataList = []
-    for f in fLists:
-        print(f)
+    for i in range(len(fLists)):
+        print(fLists[i])
+        f = fLists[i]
         data = csv_to_list("C:\\MST151821_03_65\\", f)
         #dataList.append(data)
         #break
