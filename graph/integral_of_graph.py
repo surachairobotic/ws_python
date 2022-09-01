@@ -108,7 +108,7 @@ def main():
       dt=t[j+1]-t[j]
       area=(y[i][j]+y[i][j+1])/2.0*dt
       _sum=_sum+area
-      tmp.append(area)
+      tmp.append(_sum)
 
     avg.append(_sum)
     z.append(tmp)
@@ -183,11 +183,12 @@ def main():
       #_w1 = "{:.2f}".format(round(w1[i], 2))
       #_w2 = "{:.2f}".format(round(w2[i], 2))
 
-      _w1 = "{:.2f}".format(round(w1[i], 2))
-      _w2 = "{:.2f}".format(round(w2[i], 2))
+      _a = w1[i] + w2[i]
+      _w1 = "{:.2f}".format(round(w1[i]/_a*100, 2))
+      _w2 = "{:.2f}".format(round(w2[i]/_a*100, 2))
 
       if pattern is 1:
-        axarr.plot(t, y[i], label=name[i]+": "+_a+"\nw1: "+_w1+"\nw2: "+_w2)
+        axarr.plot(t, y[i], label=name[i]+"\nw1: "+_w1+"%\nw2: "+_w2+'%')
         axarr.plot(t, m[i])
         axarr.legend()
       
@@ -196,14 +197,14 @@ def main():
       elif pattern is 2:
         #axarr.plot(t, m[i], label='slope')
         axarr.axvline(x=vx[i], color='k', linestyle='--')
-        axarr.plot(t, y[i], label=name[i])
+        axarr.plot(t, y[i], label=name[i]+"\nw1: "+_w1+"%\nw2: "+_w2+'%')
 
         #axarr.plot(t, z[i], label='Area : '+_a+'\nw1 : '+_w1+'\nw2 : '+_w2)
         #axarr.plot(t, z[i], label='Area : '+_a)
         #axarr.legend()
         #plt.savefig(ffpath+"savefig/lot4/"+name[i]+".png")
 
-        axarr.plot(t, z[i], label='Area : '+_a+"\nw1: "+_w1+"\nw2: "+_w2)
+        #axarr.plot(t, z[i], label='Area : '+_a+"\nw1: "+_w1+"\nw2: "+_w2)
         #axarr.plot(t, m[i])
         axarr.legend()
         fig.savefig(ffpath + ffname + "/savefig/with_area/"+name[i]+".png")
