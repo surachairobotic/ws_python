@@ -17,6 +17,7 @@ def main():
 
   f_name = 'C:/Users/surachai_probook/Downloads/P1951578_7 samples_16122564 (Average record).xls'
   f_name = 'C:/Users/surachai_probook/Downloads/P1951578_5 samples_14012565 (Average record).xls'
+  f_name = 'C:/Users/Surachai/Downloads/26082565/Average record/P1951578_9 samples_26082565 (Average record).xls'
 
   n1 = f_name.rfind('/') + 1
   n2 = f_name.rfind('.')
@@ -209,12 +210,13 @@ def main():
         axarr2.plot(t, y[i], label=name[i])
         axarr2.axvline(x=vx[i], color='k', linestyle='--')
         #axarr2.plot(t, m[i])
-
+      #axarr.clear()
+      plt.close(fig)
       #print("name : " + name[i])
       #break
     fig2.tight_layout()
     fig2.savefig(ffpath + ffname + "/savefig/xxx.png")
-
+    plt.close(fig2)
 
   #axarr.scatter(df['speed'], df['calculate'], marker='.', color='blue')
 
