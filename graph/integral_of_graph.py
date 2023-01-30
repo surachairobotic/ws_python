@@ -18,6 +18,11 @@ def main():
   f_name = 'C:/Users/surachai_probook/Downloads/P1951578_7 samples_16122564 (Average record).xls'
   f_name = 'C:/Users/surachai_probook/Downloads/P1951578_5 samples_14012565 (Average record).xls'
   f_name = 'C:/Users/Surachai/Downloads/26082565/Average record/P1951578_9 samples_26082565 (Average record).xls'
+  f_name = 'C:/Users/surachai_thinkpad/Downloads/P1951578_12 samples_8092564_(1st record).xls'
+  f_name = 'C:/Users/surachai_thinkpad/Downloads/P1951578_15 samples_22072564_(Averag 5 records).xls'
+
+  f_name = 'C:/Users/surachai_thinkpad/Downloads/20102565/First record/P1951578_11 samples_20102565 (1st record).xls'
+  f_name = 'C:/Users/surachai_thinkpad/Downloads/P1951578_10 samples_27102565 (Average record).xls'
 
   n1 = f_name.rfind('/') + 1
   n2 = f_name.rfind('.')
