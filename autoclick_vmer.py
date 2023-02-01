@@ -1,4 +1,4 @@
-import pyautogui, time, keyboard
+import pyautogui, time, keyboard, schedule
 from PIL import ImageGrab
 
 class Mouse():
@@ -55,7 +55,7 @@ class Mouse():
         pyautogui.leftClick()
         self.delay(0.5)
 
-def main():
+def autoclick():
     print('Autoclick V-MER')
     mouse = Mouse()
     print('clickVibrationMeasurement')
@@ -67,18 +67,20 @@ def main():
     print('clickSAVE')
     mouse.clickSAVE()
     mouse.typeFileNameAndSave('savefrom_AuToClick')
-    while True:
-        if mouse.btn_status(69, 688) != (255, 255, 255):
-            mouse.click(69, 688)
-            mouse.delay(0.5)
-            mouse.move(961, 139)
-            mouse.delay(0.5)
-            mouse.move(960, 138)
-            mouse.delay(0.5)
-        elif mouse.btn_status(960, 138) == (229, 241, 251):
-            break
+    for i in range(5):
+        mouse.click(69, 688)
         mouse.delay(1.0)
     print('END')
+
+def main():
+    
+    while True:
+        current_time = time.localtime()
+        if current_time.tm_min == 0:
+            autoclick()
+            time.sleep(61)
+        time.sleep(30)
+
 
 if __name__ == "__main__":
     main()
