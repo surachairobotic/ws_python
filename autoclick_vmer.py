@@ -5,8 +5,9 @@ class Mouse():
     def delay(self, t):
         time.sleep(t)
     def btn_status(self, x, y):
-        screen = ImageGrab.grab()
-        color = screen.getpixel((x, y))
+        #screen = ImageGrab.grab()
+        #color = screen.getpixel((x, y))
+        color = pyautogui.screenshot().getpixel((x, y))
         return color
     def move(self, x, y):
         pyautogui.moveTo(x, y, duration=2.0)
