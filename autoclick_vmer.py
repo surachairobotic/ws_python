@@ -50,6 +50,9 @@ class Mouse():
         self.move(405, 417)
         pyautogui.leftClick()
         self.delay(0.5)
+        with pyautogui.hold('ctrl'):
+            pyautogui.press('a')
+        pyautogui.press('backspace')
         pyautogui.write(fname)
         self.move(529, 448)
         pyautogui.leftClick()
